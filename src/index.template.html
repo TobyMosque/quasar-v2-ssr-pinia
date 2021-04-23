@@ -18,8 +18,10 @@
   <body>
     <!-- DO NOT touch the following DIV -->
     <div id="q-app"></div>
+    <% if (ctx.mode.ssr) { %>
     <script id="pinia-state" nonce="{{nonce}}">
       window.__PINIA_STATE__ = '{{piniaState}}';
     </script>
+    <% } %>
   </body>
 </html>
