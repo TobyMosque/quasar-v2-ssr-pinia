@@ -3,8 +3,6 @@ import { createPinia } from 'pinia'
 
 declare module '@quasar/app' {
   interface QSsrContext {
-    _onRenderedList: (() => void)[],
-    onRendered (fn: () => void): void,
     piniaState?: string
     nonce?: string
   }
@@ -16,19 +14,13 @@ export default boot(async ({ app, store: di, ssrContext }) => {
   const pinia = createPinia()
   app.use(pinia)
   // yes, I'm vuex as a di container
-  di.provider('pinia', pinia)
+  di.provide('pinia', pinia)
 
   if (process.env.MODE !== 'ssr') {
     return
   }
   if (process.env.SERVER && ssrContext) {
     // temporary workaround, onRendered will be part of the QSsrContext in the future
-    if (!ssrContext.onRendered) {
-      ssrContext.onRendered = function (fn) {
-        ssrContext._onRenderedList.push(fn)
-      }
-    }
-
     const crypto = await import('crypto')
     const serialize = (await import('serialize-javascript')).default
     ssrContext.onRendered(function () {

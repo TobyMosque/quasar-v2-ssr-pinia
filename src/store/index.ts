@@ -23,7 +23,7 @@ declare module '@vue/runtime-core' {
 declare module 'vuex' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   interface Store<S> {
-    provider <T>(name: string, service: T): void
+    provide <T>(name: string, service: T): void
     inject <T>(name: string): T | undefined
   }
 }
@@ -35,7 +35,7 @@ export default store(function (/* { ssrContext } */) {
 
   // yes, I'm vuex as a di container
   const depedencies: Record<string, unknown> = {}
-  Store.provider = function <T>(name: string, service: T) {
+  Store.provide = function <T>(name: string, service: T) {
     depedencies[name] = service
   }
   Store.inject = function <T>(name: string) {

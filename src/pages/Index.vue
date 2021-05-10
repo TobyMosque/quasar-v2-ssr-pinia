@@ -15,7 +15,7 @@ export default defineComponent({
     // yes, I'm vuex as a di container
     const pinia = di.inject<Pinia>('pinia')
     const app = useApp(pinia)
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise(resolve => setTimeout(resolve, 25))
     app.msg = app.msg.split('').reverse().join('')
   },
   setup() {
