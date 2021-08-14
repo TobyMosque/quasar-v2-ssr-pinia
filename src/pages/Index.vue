@@ -11,9 +11,8 @@ import { Pinia } from 'pinia';
 
 export default defineComponent({
   name: 'PageIndex',
-  async preFetch ({ store: di }) {
-    // yes, I'm vuex as a di container
-    const pinia = di.inject<Pinia>('pinia')
+  async preFetch ({ store }) {
+    const pinia = store as Pinia
     const app = useApp(pinia)
     await new Promise(resolve => setTimeout(resolve, 25))
     app.msg = app.msg.split('').reverse().join('')

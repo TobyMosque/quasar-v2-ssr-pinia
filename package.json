@@ -10,19 +10,20 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.10.4",
+    "@quasar/extras": "^1.10.10",
     "@types/object-hash": "^2.1.0",
     "core-js": "^3.6.5",
     "object-hash": "^2.1.1",
     "pinia": "^2.0.0-alpha.13",
-    "quasar": "^2.0.0-beta.15"
+    "quasar": "^2.0.3"
   },
   "devDependencies": {
-    "@quasar/app": "^3.0.0-beta.22",
+    "@quasar/app": "^3.0.4",
     "@types/node": "^10.17.15",
     "@types/serialize-javascript": "^5.0.0",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
+    "autoprefixer": "^10.3.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^8.1.0",

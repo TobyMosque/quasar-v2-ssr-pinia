@@ -1,6 +1,6 @@
 import { store } from 'quasar/wrappers'
-import { createStore, Store as VuexStore } from 'vuex'
-
+import { createPinia, Pinia } from 'pinia'
+import { unref, Ref } from 'vue'
 // import example from './module-example'
 // import { ExampleStateInterface } from './module-example/state';
 
@@ -13,36 +13,38 @@ import { createStore, Store as VuexStore } from 'vuex'
  * with the Store instance.
  */
 
+declare module '@quasar/app' {
+  interface QSsrContext {
+    state: Ref<never> | never
+  }
+}
+
 // provide typings for `this.$store`
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    $store: VuexStore<never>
+    $store: Pinia
   }
 }
 
-declare module 'vuex' {
+declare module 'pinia' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-  interface Store<S> {
-    provide <T>(name: string, service: T): void
-    inject <T>(name: string): T | undefined
+  interface Pinia {
+    replaceState (state: never): void
   }
 }
 
-export default store(function (/* { ssrContext } */) {
-  const Store = createStore<never>({
-    strict: !!process.env.DEBUGGING
-  })
-
-  // yes, I'm vuex as a di container
-  const depedencies: Record<string, unknown> = {}
-  Store.provide = function <T>(name: string, service: T) {
-    depedencies[name] = service
+export default store(function ({ ssrContext }) {
+  const pinia = createPinia()
+  if (process.env.SERVER && ssrContext) {
+    ssrContext.onRendered(function () {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      ssrContext.state = unref(ssrContext.state)
+    })
   }
-  Store.inject = function <T>(name: string) {
-    if (name in depedencies) {
-      const service = depedencies[name]
-      return service as T
+  if (process.env.CLIENT) {
+    pinia.replaceState = function (state: never) {
+      pinia.state.value = state
     }
   }
-  return Store
+  return pinia
 })
