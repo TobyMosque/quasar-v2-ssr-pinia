@@ -37,6 +37,7 @@ export default store(function ({ ssrContext }) {
   const pinia = createPinia()
   if (process.env.SERVER && ssrContext) {
     ssrContext.onRendered(function () {
+      // unwrapping the state for serialization
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       ssrContext.state = unref(ssrContext.state)
     })

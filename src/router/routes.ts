@@ -2,7 +2,9 @@ import { Pinia } from 'pinia';
 import { RouteRecordRaw } from 'vue-router';
 
 export default function (store: Pinia) {
-  console.log(store)
+  if (process.env.CLIENT && process.env.DEV) {
+    console.log(store)
+  }
   const routes: RouteRecordRaw[] = [
     {
       path: '/',
