@@ -6,6 +6,8 @@
   "author": "Tobias Mesquita <tobias.mesquita@gmail.com>",
   "private": true,
   "scripts": {
+    "dev": "quasar dev --mode ssr",
+    "build": "quasar build",
     "lint": "eslint --ext .js,.ts,.vue ./",
     "test": "echo \"No test specified\" && exit 0"
   },
