@@ -1,26 +1,25 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <q-input v-model="msg"></q-input>
+    <q-input v-model="temp"></q-input>
   </q-page>
 </template>
 
 <script lang="ts">
 import { defineComponent, toRefs } from 'vue';
-import useApp from 'src/pinia/app'
-import { Pinia } from 'pinia';
+import { preFetch } from 'quasar/wrappers'
+import useDemo from 'src/stores/demo'
 
 export default defineComponent({
   name: 'PageIndex',
-  async preFetch ({ store }) {
-    const pinia = store as Pinia
-    const app = useApp(pinia)
+   preFetch: preFetch(async ({ store }) => {
+    const demo = useDemo(store)
     await new Promise(resolve => setTimeout(resolve, 25))
-    app.msg = app.msg.split('').reverse().join('')
-  },
+    demo.temp = demo.sayReversedHello('Super Test')
+  }),
   setup() {
-    const app = toRefs(useApp())
+    const demo = toRefs(useDemo())
     return {
-      msg: app.msg
+      temp: demo.temp
     };
   }
 });

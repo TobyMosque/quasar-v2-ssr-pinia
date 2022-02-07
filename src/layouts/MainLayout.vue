@@ -43,14 +43,14 @@
 
     <q-page-container>
       <router-view />
-      layout - {{msg}}
+      layout - {{temp}}
     </q-page-container>
   </q-layout>
 </template>
 
 <script lang="ts">
 import EssentialLink from 'components/EssentialLink.vue'
-import useApp from 'src/pinia/app'
+import useDemo from 'src/stores/demo'
 
 const linksList = [
   {
@@ -108,9 +108,9 @@ export default defineComponent({
 
   setup () {
     const leftDrawerOpen = ref(false)
-    const app = toRefs(useApp())
+    const app = toRefs(useDemo())
     return {
-      msg: app.msg,
+      temp: app.temp,
       essentialLinks: linksList,
       leftDrawerOpen,
       toggleLeftDrawer () {
