@@ -12,7 +12,7 @@ export default boot(({ store }) => {
       state: { hello: store.hello, message: store.message },
       actions: {
         sayHello: store.sayHello(name),
-        x: store.sayReversedHello(name),
+        sayReversedHello: store.sayReversedHello(name),
       },
       getters: store.reversedState,
     });
