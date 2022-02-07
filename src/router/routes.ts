@@ -3,7 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 
 export default function (store: Pinia) {
   if (process.env.CLIENT && process.env.DEV) {
-    console.log(store)
+    console.log(store);
   }
   const routes: RouteRecordRaw[] = [
     {
@@ -11,7 +11,7 @@ export default function (store: Pinia) {
       component: () => import('layouts/MainLayout.vue'),
       children: [{ path: '', component: () => import('pages/Index.vue') }],
     },
-  
+
     // Always leave this as last one,
     // but you can also remove it
     {
@@ -19,7 +19,6 @@ export default function (store: Pinia) {
       component: () => import('pages/Error404.vue'),
     },
   ];
-  
+
   return routes;
 }
-

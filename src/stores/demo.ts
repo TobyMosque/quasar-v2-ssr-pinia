@@ -1,41 +1,41 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 
-function reverseText (text: string) {
-  return text.split('').reverse().join('')
+function reverseText(text: string) {
+  return text.split('').reverse().join('');
 }
 
 const useDemo = defineStore('demo', {
   state: () => ({
     hello: 'Hello',
     message: 'Hello World',
-    temp: ''
+    temp: '',
   }),
   actions: {
-    sayHello (name: string) {
-      return `${this.hello} ${name}`
+    sayHello(name: string) {
+      return `${this.hello} ${name}`;
     },
-    sayReversedHello (name: string) {
-      const eman = reverseText(name)
-      return `${eman} ${this.reverseHello}`
-    }
+    sayReversedHello(name: string) {
+      const eman = reverseText(name);
+      return `${eman} ${this.reverseHello}`;
+    },
   },
   getters: {
-    reverseMessage (state) {
-      return reverseText(state.message)
+    reverseMessage(state) {
+      return reverseText(state.message);
     },
-    reverseHello (state) {
-      return reverseText(state.hello)
+    reverseHello(state) {
+      return reverseText(state.hello);
     },
-    reversedState () {
+    reversedState() {
       return {
         hello: this.reverseHello,
-        message: this.reverseMessage
-      }
-    }
-  }
-})
+        message: this.reverseMessage,
+      };
+    },
+  },
+});
 
-export type DemoStore = ReturnType<typeof useDemo>
-export type DemoSOAListener = SOAListener<DemoStore>
+export type DemoStore = ReturnType<typeof useDemo>;
+export type DemoSOAListener = SOAListener<DemoStore>;
 
-export default useDemo
+export default useDemo;
