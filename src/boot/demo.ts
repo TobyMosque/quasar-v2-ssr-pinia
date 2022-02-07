@@ -7,13 +7,8 @@ export default boot(({ store }) => {
   const demo = useDemo(store);
 
   function testStore(store: DemoStore) {
-    const name = 'Super Test';
     console.log({
       state: { hello: store.hello, message: store.message },
-      actions: {
-        sayHello: store.sayHello(name),
-        sayReversedHello: store.sayReversedHello(name),
-      },
       getters: store.reversedState,
     });
   }
@@ -26,5 +21,7 @@ export default boot(({ store }) => {
   };
 
   demo.$onAction(onAction);
+  const name = 'Super Test';
+  demo.sayReversedHello(name);
   testStore(demo);
 });

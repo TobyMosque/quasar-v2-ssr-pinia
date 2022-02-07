@@ -18,6 +18,16 @@ declare module '@vue/runtime-core' {
   }
 }
 
+/* if you aren't taggeting SSR, u can remove anything what is related to the SSR mode
+ * 1 - ssrContext parameter from the store wrapper
+ * 2 - the import and the call to the configSrr method
+ * 3 - u can even remove the file `/ssr.config.ts`
+ * 
+ * export default store(function (_) {
+ *   const pinia = createPinia();
+ *   return pinia;
+ * });
+ */
 export default store(function ({ ssrContext }) {
   const pinia = createPinia();
   if (process.env.MODE === 'ssr') {
