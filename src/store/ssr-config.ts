@@ -1,9 +1,10 @@
-import { unref } from 'vue';
+import { unref, Ref } from 'vue';
 import { Pinia } from 'pinia';
+import { QSsrContext } from '@quasar/app';
 
 declare module '@quasar/app' {
   interface QSsrContext {
-    state: import('vue').Ref<never> | never;
+    state: Ref<never> | never;
   }
 }
 
@@ -16,7 +17,7 @@ declare module 'pinia' {
 
 type SsrConfigParams = {
   pinia: Pinia;
-  ssrContext: import('@quasar/app').QSsrContext | null | undefined;
+  ssrContext: QSsrContext | null | undefined;
 };
 export default function ({ pinia, ssrContext }: SsrConfigParams) {
   if (process.env.SERVER && ssrContext) {
