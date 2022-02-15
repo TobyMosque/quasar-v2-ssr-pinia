@@ -6,6 +6,8 @@
   "author": "Tobias Mesquita <tobias.mesquita@gmail.com>",
   "private": true,
   "scripts": {
+    "dev": "quasar dev --mode ssr",
+    "build": "quasar build --mode ssr",
     "lint": "eslint --ext .js,.ts,.vue ./",
     "test": "echo \"No test specified\" && exit 0"
   },
@@ -44,7 +46,7 @@
     "last 5 Opera versions"
   ],
   "engines": {
-    "node": ">= 10.18.1",
+    "node": ">= 12.22.1",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   }
