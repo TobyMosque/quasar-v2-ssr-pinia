@@ -4895,6 +4895,11 @@ picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.2, picomatch@^2.2.3:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
 
+pinia-plugin-persistedstate@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/pinia-plugin-persistedstate/-/pinia-plugin-persistedstate-1.2.2.tgz#a9d36e18dcf903b32c013b6a8da865d6f9b00c21"
+  integrity sha512-qm/fYlkA0p7E3spL0bjSxxl2nm3szGNsIGKlWAbHddMvR48prWi7qYmtmVFIERCpbdCYVSmq5AvGIrGbWzkVzw==
+
 pinia@^2.0.11:
   version "2.0.11"
   resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.11.tgz#ff03c714f5e5f16207280a4fc2eab01f3701ee2b"

@@ -33,6 +33,7 @@ const useDemo = defineStore('demo', {
       };
     },
   },
+  persist: true,
 });
 
 export type DemoStore = ReturnType<typeof useDemo>;
