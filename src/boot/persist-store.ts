@@ -15,35 +15,40 @@ export default boot(({ store, ssrContext }) => {
   store.use(({ store, options }) => {
     if (options.persist) {
       const name = store.$id;
-      const isLocal = 'getItem' in options.persist
-      if (process.env.SERVER && isLocal) {
-        return;
-      }
-      if (process.env.SERVER && 'parseSSR' in options.persist) {
-        options.persist = options.persist.parseSSR(ssrContext)
-      }
-      
-      const state: Record<string, never> | null = 'getItem' in options.persist
-        ? options.persist.getItem(name)
-        : options.persist.get(name);
-      
-      if (state) {
-        for (const key in state) {
-          store[key] = state[key];
+      let state: Record<string, never> | null
+      function syncState () {
+        if (state) {
+          for (const key in state) {
+            store[key] = state[key];
+          }
         }
       }
 
-      // for some reason, #subscribe isn't working at the server side...
-      store.$subscribe((_, state) => {
-        if (!options.persist) {
+      if ('getItem' in options.persist) {
+        // the state is being persisted at the Local/Session Storage (client only)
+        if (process.env.SERVER) {
           return;
         }
-        if ('getItem' in options.persist) {
-          options.persist.set(name, state)
-        } else {
-          options.persist.set(name, state as never, { path: '/' })
+        const storage = options.persist
+        state = storage.getItem(name)
+
+        syncState()
+        store.$subscribe((_, state) => {
+          storage.set(name, state)
+        });
+      } else {
+        // the state is being persisted in a Cookie
+        let cookie = options.persist
+        if (process.env.SERVER && 'parseSSR' in cookie) {
+          cookie = cookie.parseSSR(ssrContext)
         }
-      });
+        state = cookie.get(name)
+        
+        syncState()
+        store.$subscribe((_, state) => {
+          cookie.set(name, state as never, { path: '/' })
+        });
+      }
     }
   });
 })
