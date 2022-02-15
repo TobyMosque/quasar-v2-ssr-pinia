@@ -1,51 +1,37 @@
-import { store } from 'quasar/wrappers'
-import { createPinia, Pinia } from 'pinia'
-import { unref, Ref } from 'vue'
-// import example from './module-example'
-// import { ExampleStateInterface } from './module-example/state';
-
-/*
- * If not building with SSR mode, you can
- * directly export the Store instantiation;
- *
- * The function below can be async too; either use
- * async/await or return a Promise which resolves
- * with the Store instance.
- */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { store } from 'quasar/wrappers';
+import { createPinia, Pinia } from 'pinia';
+import configSsr from './ssr-config';
 
 declare module '@quasar/app' {
-  interface QSsrContext {
-    state: Ref<never> | never
+  interface BootFileParams<TState> {
+    store: Pinia;
+  }
+  interface PreFetchOptions<TState> {
+    store: Pinia;
   }
 }
 
-// provide typings for `this.$store`
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    $store: Pinia
+    $store: import('pinia').Pinia;
   }
 }
 
-declare module 'pinia' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-  interface Pinia {
-    replaceState (state: never): void
-  }
-}
-
+/* if you aren't taggeting SSR, u can remove anything what is related to the SSR mode
+ * 1 - ssrContext parameter from the store wrapper
+ * 2 - the import and the call to the configSrr method
+ * 3 - you can even remove the file `/ssr.config.ts`
+ *
+ * export default store(function (_) {
+ *   const pinia = createPinia();
+ *   return pinia;
+ * });
+ */
 export default store(function ({ ssrContext }) {
-  const pinia = createPinia()
-  if (process.env.SERVER && ssrContext) {
-    ssrContext.onRendered(function () {
-      // unwrapping the state for serialization
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      ssrContext.state = unref(ssrContext.state)
-    })
+  const pinia = createPinia();
+  if (process.env.MODE === 'ssr') {
+    configSsr({ pinia, ssrContext });
   }
-  if (process.env.CLIENT) {
-    pinia.replaceState = function (state: never) {
-      pinia.state.value = state
-    }
-  }
-  return pinia
-})
+  return pinia;
+});
