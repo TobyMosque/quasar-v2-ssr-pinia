@@ -34,9 +34,10 @@ export const useDemo = defineStore('demo', {
         message: this.reverseMessage,
       };
     },
-    reference(state) {
+    // return type is necessary when we want to use both `state` and `this` inside getter
+    reference(state): string {
       const module = useModule()
-      return module.both ? `they both, ${state.message}` : `not both, ${state.hello}`
+      return module.both ? `they both, ${state.message}` : `not both, ${this.reverseMessage}`
     },
   },
 });
