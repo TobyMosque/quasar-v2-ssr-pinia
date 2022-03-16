@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { LocalStorage } from 'quasar';
+import { SOAListener } from './index';
 
 const usePersistedLocalStorage = defineStore('persisted-localstorage', {
   state: () => ({

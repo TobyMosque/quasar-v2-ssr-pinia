@@ -1,4 +1,3 @@
-import { Pinia } from 'pinia';
 import { route } from 'quasar/wrappers';
 import {
   createMemoryHistory,
@@ -18,7 +17,6 @@ import routes from './routes';
  */
 
 export default route(function ({ store }) {
-  const pinia = store as Pinia;
   const createHistory = process.env.SERVER
     ? createMemoryHistory
     : process.env.VUE_ROUTER_MODE === 'history'
@@ -27,7 +25,7 @@ export default route(function ({ store }) {
 
   const Router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
-    routes: routes(pinia),
+    routes: routes(store),
 
     // Leave this as is and make changes in quasar.conf.js instead!
     // quasar.conf.js -> build -> vueRouterMode

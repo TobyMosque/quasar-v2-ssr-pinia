@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { SessionStorage } from 'quasar';
+import { SOAListener } from './index';
 
 const usePersistedSessionStorage = defineStore('persisted-SessionStorage', {
   state: () => ({

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { Cookies } from 'quasar';
+import { SOAListener } from './index';
 
 const usePersistedCookie = defineStore('persisted-cookie', {
   state: () => ({

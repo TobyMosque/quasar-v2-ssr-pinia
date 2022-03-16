@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { SOAListener } from './index';
 
 function reverseText(text: string) {
   return text.split('').reverse().join('');
