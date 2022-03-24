@@ -1,14 +1,16 @@
 import { defineStore } from 'pinia';
 import { SOAListener } from './index';
 
+import { useModule } from './module';
+
 function reverseText(text: string) {
   return text.split('').reverse().join('');
 }
 
-const useDemo = defineStore('demo', {
+export const useDemo = defineStore('demo', {
   state: () => ({
     hello: 'Hello',
-    message: 'Hello World',
+    message: 'World',
     temp: '',
   }),
   actions: {
@@ -33,10 +35,13 @@ const useDemo = defineStore('demo', {
         message: this.reverseMessage,
       };
     },
+    // return type is necessary when we want to use both `state` and `this` inside getter
+    reference(state): string {
+      const module = useModule()
+      return module.both ? `they both, ${state.message}` : `not both, ${this.reverseMessage}`
+    },
   },
 });
 
 export type DemoStore = ReturnType<typeof useDemo>;
 export type DemoSOAListener = SOAListener<DemoStore>;
-
-export default useDemo;

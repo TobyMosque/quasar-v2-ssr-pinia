@@ -3,7 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 
 export default function (store: Pinia) {
   if (process.env.CLIENT && process.env.DEV) {
-    console.log(store);
+    console.log('store in routes config', { store });
   }
   const routes: RouteRecordRaw[] = [
     {

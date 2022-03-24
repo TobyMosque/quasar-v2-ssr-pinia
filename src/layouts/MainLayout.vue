@@ -33,14 +33,12 @@
 
     <q-page-container>
       <router-view />
-      layout - {{ temp }}
     </q-page-container>
   </q-layout>
 </template>
 
 <script lang="ts">
 import EssentialLink from 'components/EssentialLink.vue';
-import useDemo from 'src/stores/demo';
 
 const linksList = [
   {
@@ -87,7 +85,7 @@ const linksList = [
   },
 ];
 
-import { defineComponent, toRefs, ref } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -98,9 +96,7 @@ export default defineComponent({
 
   setup() {
     const leftDrawerOpen = ref(false);
-    const app = toRefs(useDemo());
     return {
-      temp: app.temp,
       essentialLinks: linksList,
       leftDrawerOpen,
       toggleLeftDrawer() {
